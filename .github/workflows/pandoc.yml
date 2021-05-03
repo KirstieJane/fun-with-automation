@@ -17,7 +17,6 @@ jobs:
           args: >-
             -o emoji.pdf
             --pdf-engine=lualatex
-            -V mainfont="DejaVu Sans"
             docs/make-sub-dir/a-new-file.md
       - uses: actions/upload-artifact@v1
         with:
