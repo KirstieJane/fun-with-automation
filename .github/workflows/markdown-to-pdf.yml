@@ -9,7 +9,8 @@ on:
       - 'docs/**.md'
       - 'docs/images/**'
       - '.github/workflows/*yml'
-
+  on:
+    [workflow_dispatch]
 jobs:
   converttopdf:
     name: Build PDF
