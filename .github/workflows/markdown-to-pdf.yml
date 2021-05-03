@@ -26,7 +26,7 @@ jobs:
           # Default is true, can set to false to only get PDF files
           build_html: false
       - run: echo `ls -lrt pdfs`
-      - run: scripts/filter_pdfs_new_only.sh 
+      - run: sudo scripts/filter_pdfs_new_only.sh 
       - uses: actions/upload-artifact@v1
         with:
           name: docs
