@@ -33,6 +33,7 @@ jobs:
         with:
           name: new_pdfs
           path: pdfs
+      - run: rm -rf tmp_mds_to_convert
       - uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
