@@ -42,7 +42,7 @@ jobs:
     needs: [converttopdf]
     steps:
       - uses: actions/upload-artifact@v1
-        if: ${{ new_mds }}
+        if: steps.converttopdf.outputs.new_mds == 1
         with:
           name: new_pdfs
           path: new_pdfs
