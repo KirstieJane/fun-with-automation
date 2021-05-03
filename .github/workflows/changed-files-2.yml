@@ -2,8 +2,10 @@ name: Changed Files Exporter
 on: [push, pull_request]
 
 jobs:
-  steps:
-    - uses: futuratrepadeira/changed-files@v3.3.0
-      with:
-        repo-token: ${{ github.token }}
-        pattern: '^.*\.(md|markdown)$'
+  convertfiles:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: futuratrepadeira/changed-files@v3.3.0
+        with:
+          repo-token: ${{ github.token }}
+          pattern: '^.*\.(md|markdown)$'
