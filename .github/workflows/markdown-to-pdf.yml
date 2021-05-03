@@ -22,7 +22,7 @@ jobs:
       - name:
         run: |
           sudo chown -R $USER:$USER \
-          /home/github/actions-runner/_work/fun_with_automation
+          /home/github/actions-runner/work/fun_with_automation/fun_with_automation
       - name: Find updated markdown files
         id: filter
         run: |

@@ -15,6 +15,5 @@ Here's a fun change....
 | they | look | good! |
 | lfll | q | q |
 
-Lalalaaaaaaand
 
 Another change
