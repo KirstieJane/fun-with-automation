@@ -11,15 +11,15 @@ on:
       - 'docs/images/**'
       - '.github/workflows/*yml'
 jobs:
-  findnewmdfiles:
-    name: Find new markdown files
+  converttopdf:
+    name: Convert updated markdown files to PDF
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-      - name: Run filter script
+      - name: Find updated markdown files
         run: |
           chmod +x ./scripts/filter_mds_new_only.sh
           ./scripts/filter_mds_new_only.sh
@@ -30,17 +30,6 @@ jobs:
             echo "::set-output name=new_mds::1"
             echo "Setting output to 1"
           fi
-
-  converttopdf:
-    name: Convert new markdown files to PDF
-    runs-on: ubuntu-latest
-    needs: [findnewmdfiles]
-    steps:
-      - name: Checkout main repository
-        uses: actions/checkout@v2
-        if: steps.findnewmdfiles.outputs.new_mds == 1
-        with:
-          fetch-depth: 2
       - name: Convert to pdf
         uses: baileyjm02/markdown-to-pdf@v1
         if: steps.findnewmdfiles.outputs.new_mds == 1
@@ -52,18 +41,12 @@ jobs:
           # image_import: ./images
           # Default is true, can set to false to only get PDF files
           build_html: false
-
-  uploadtoslack:
-    name: Upload to Slack
-    runs-on: ubuntu-latest
-    needs: [converttopdf]
-    steps:
-      #- name: Checkout main repository
-      #  uses: actions/upload-artifact@v1
-      #  if: steps.converttopdf.outputs.new_mds == 1
-      #  with:
-      #    name: new_pdfs
-      #    path: new_pdfs
+          #- name: Checkout main repository
+          #  uses: actions/upload-artifact@v1
+          #  if: steps.converttopdf.outputs.new_mds == 1
+          #  with:
+          #    name: new_pdfs
+          #    path: new_pdfs
       - name: Push new pdfs to slack
         if: steps.converttopdf.outputs.new_mds == 1
         run: |
@@ -73,17 +56,6 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }}" \
             https://slack.com/api/files.upload;
           done
-
-  uploadtogithub:
-    name: Upload to GitHub
-    runs-on: ubuntu-latest
-    needs: [converttopdf, uploadtoslack]
-    steps:
-      - name: Checkout main repository
-        uses: actions/checkout@v2
-        if: steps.converttopdf.outputs.new_mds == 1
-        with:
-          fetch-depth: 2
       - name: Move new pdfs to pdfs dir and clean up tmp dirs
         if: steps.converttopdf.outputs.new_mds == 1
         run: |
