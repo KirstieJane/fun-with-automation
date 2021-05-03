@@ -15,7 +15,7 @@ jobs:
       - uses: docker://pandoc/latex:2.9
         with:
           args: >-
-            -o emoji.pdf
+            -o output/a-new-file.pdf
             --pdf-engine=lualatex
             docs/make-sub-dir/a-new-file.md
       - uses: actions/upload-artifact@v1
