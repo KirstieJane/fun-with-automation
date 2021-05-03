@@ -1,4 +1,4 @@
-name: Docs to PDF
+name: Markdown notes to PDF
 # This workflow is triggered on pushes to the repository.
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
           fi
       - name: Convert to pdf
         uses: baileyjm02/markdown-to-pdf@v1
-        if: steps.findnewmdfiles.outputs.new_mds == 1
+        if: steps.filter.outputs.new_mds == 1
         with:
           input_dir: tmp_mds_to_convert
           output_dir: new_pdfs
