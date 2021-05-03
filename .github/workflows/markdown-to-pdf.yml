@@ -28,3 +28,6 @@ jobs:
         with:
           name: docs
           path: pdfs
+      - uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
