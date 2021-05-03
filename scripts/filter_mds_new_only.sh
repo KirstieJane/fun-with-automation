@@ -15,3 +15,5 @@ for f in ${DIFF[@]}; do
     cp ${f} tmp_mds_to_convert/${basename_f}
   fi
 done
+
+echo `ls -lrt tmp_mds_to_convert`
