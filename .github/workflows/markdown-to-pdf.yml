@@ -11,8 +11,8 @@ on:
       - 'docs/images/**'
       - '.github/workflows/*yml'
 jobs:
-  converttopdf:
-    name: Build PDF
+  findthefiles:
+    name: Identify new markdown files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
