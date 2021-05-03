@@ -12,6 +12,7 @@ jobs:
           mkdir -p output  # create output dir
           # this will also include README.md
           echo "FILELIST=$(printf '"%s" ' *.md)" >> $GITHUB_ENV
+      - run sudo fc-cache -fv
       - uses: docker://pandoc/latex:2.9
         with:
           args: >-
