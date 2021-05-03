@@ -24,6 +24,7 @@ jobs:
   converttopdf:
     name: Build PDF
     runs-on: ubuntu-latest
+    needs: [findthefiles]
     steps:
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
@@ -38,6 +39,7 @@ jobs:
   uploadtoslack:
     name: Upload to Slack
     runs-on: ubuntu-latest
+    needs: [findthefiles, converttopdf]
     steps:
       - uses: actions/upload-artifact@v1
         with:
@@ -58,6 +60,7 @@ jobs:
   uploadtogithub:
     name: Upload to GitHub
     runs-on: ubuntu-latest
+    needs: [findthefiles, converttopdf, uploadtoslack]
     steps:
       - run: |
           if [[ -z "$(ls new_pdfs/*pdf) ]]; then
