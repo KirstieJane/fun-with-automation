@@ -75,7 +75,6 @@ jobs:
     name: Upload to GitHub
     runs-on: ubuntu-latest
     needs: [converttopdf, uploadtoslack]
-    if: steps.converttopdf.outputs.new_mds == 1
     steps:
       - name: Checkout main repository
         uses: actions/checkout@v2
