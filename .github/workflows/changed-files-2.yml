@@ -1,5 +1,9 @@
 name: Changed Files Exporter
-  uses: futuratrepadeira/changed-files@v3.3.0
-  with:
-    repo-token: ${{ github.token }}
-    pattern: '^.*\.(md|markdown)$'
+on: [push, pull_request]
+
+jobs:
+  steps:
+    - uses: futuratrepadeira/changed-files@v3.3.0
+      with:
+        repo-token: ${{ github.token }}
+        pattern: '^.*\.(md|markdown)$'
