@@ -12,7 +12,7 @@ on:
       - '.github/workflows/*yml'
 jobs:
   converttopdf:
-    name: Convert updated markdown files to PDF
+    name: Updated MDs to PDF
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main repository
@@ -20,6 +20,7 @@ jobs:
         with:
           fetch-depth: 2
       - name: Find updated markdown files
+        id: filter
         run: |
           chmod +x ./scripts/filter_mds_new_only.sh
           ./scripts/filter_mds_new_only.sh
@@ -48,7 +49,7 @@ jobs:
           #    name: new_pdfs
           #    path: new_pdfs
       - name: Push new pdfs to slack
-        if: steps.converttopdf.outputs.new_mds == 1
+        if: steps.filter.outputs.new_mds == 1
         run: |
           for new_pdf in `ls new_pdfs/*pdf`; do
             curl -F file=${new_pdf} \
@@ -57,7 +58,7 @@ jobs:
             https://slack.com/api/files.upload;
           done
       - name: Move new pdfs to pdfs dir and clean up tmp dirs
-        if: steps.converttopdf.outputs.new_mds == 1
+        if: steps.filter.outputs.new_mds == 1
         run: |
           if [[ -z "$(ls -A new_pdfs/*pdf)" ]]; then
             echo "No new PDFS, nothing to upload"
@@ -68,7 +69,7 @@ jobs:
           fi
       - name: Push to GitHub
         uses: mikeal/publish-to-github-action@master
-        if: steps.converttopdf.outputs.new_mds == 1
+        if: steps.filter.outputs.new_mds == 1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: 'main'
