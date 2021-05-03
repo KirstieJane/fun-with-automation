@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 2  # OR "2" -> To retrieve the preceding commit.
    
       - uses: actions/checkout@v2
       - name: Get changed files using defaults
