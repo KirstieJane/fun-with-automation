@@ -15,6 +15,3 @@ Here's a fun change....
 | they | look | good! |
 | lfll | q | q |
 
-a new line here.
-
-A new line again.
