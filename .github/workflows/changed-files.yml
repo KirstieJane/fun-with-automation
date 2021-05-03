@@ -1,4 +1,4 @@
-name: Docs to PDF
+name: Check files that have changed
 # This workflow is triggered on pushes to the repository.
 on:
   workflow_dispatch:
@@ -17,25 +17,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Test changed-files
-    
+
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 2  # OR "2" -> To retrieve the preceding commit.
-   
-      - uses: actions/checkout@v2
-      - name: Get changed files using defaults
-        id: changed-files
-        uses: tj-actions/changed-files@v5.1
-
-      - name: List all modified files
-        run: |
-          for file in "${{ steps.changed-files.outputs.all_modified_files }}"; do
-            echo "$file was modified"
-          done
-
-      - name: List all added files
-        run: |
-          for file in "${{ steps.changed-files.outputs.added_files }}"; do
-            echo "$file was added"
-          done
+          fetch-depth: 0
+      - run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})" >> $GITHUB_ENV
+             
