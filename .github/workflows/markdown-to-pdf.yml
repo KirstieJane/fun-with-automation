@@ -8,6 +8,7 @@ on:
     paths:
       - 'docs/**.md'
       - 'docs/images/**'
+      - '.github/workflows/*.yml'
 
 jobs:
   converttopdf:
