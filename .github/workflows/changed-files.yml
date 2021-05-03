@@ -39,10 +39,3 @@ jobs:
           for file in "${{ steps.changed-files.outputs.added_files }}"; do
             echo "$file was added"
           done
-
-      - name: Get specific changed files
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v5.1
-        with:
-          files: |
-            **/*.md
