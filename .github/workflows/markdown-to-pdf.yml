@@ -20,6 +20,9 @@ jobs:
           fetch-depth: 2
       - run: chmod +x ./scripts/filter_mds_new_only.sh
       - run: ./scripts/filter_mds_new_only.sh
+
+  converttopdf:
+    name: Build PDF
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: tmp_mds_to_convert
@@ -29,20 +32,35 @@ jobs:
           # image_import: ./images
           # Default is true, can set to false to only get PDF files
           build_html: false
+
+  uploadtoslack:
+    name: Upload to Slack
       - uses: actions/upload-artifact@v1
         with:
           name: new_pdfs
           path: new_pdfs
       - run: |
-          for new_pdf in `ls new_pdfs/*pdf`; do
-            curl -F file=${new_pdf} \
-            -F channels=#meeting-minutes-pdfs \
-            -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }}" \
-            https://slack.com/api/files.upload;
-          done
-      - run: cp new_pdfs/*pdf pdfs/
-      - run: rm -rf tmp_mds_to_convert
-      - run: rm -rf new_pdfs
+          if [[ -z "$(ls new_pdfs/*pdf) ]]; then
+            echo "No new PDFS, nothing to upload"
+          else
+            for new_pdf in `ls new_pdfs/*pdf`; do
+              curl -F file=${new_pdf} \
+              -F channels=#meeting-minutes-pdfs \
+              -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }}" \
+              https://slack.com/api/files.upload;
+            done
+          fi
+
+  uploadtogithub:
+    name: Upload to GitHub
+      - run: |
+          if [[ -z "$(ls new_pdfs/*pdf) ]]; then
+            echo "No new PDFS, nothing to upload"
+          else
+            cp new_pdfs/*pdf pdfs/
+            rm -rf tmp_mds_to_convert
+            rm -rf new_pdfs
+          fi
       - uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

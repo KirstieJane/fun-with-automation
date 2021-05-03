@@ -12,7 +12,7 @@ Here's a fun change....
 
 | What happens | with | tables? |
 | ---- | ---- | ---- |
-| ala | d | d |
+| they | look | good! |
 | lfll | q | q |
 
 a new line here.
