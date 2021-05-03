@@ -40,12 +40,12 @@ jobs:
             # Set $directory to substring before /
             directory="$( echo $path | cut -d'/' -f1 -s )"
 
-            if [ -z "$directory" ]; then
-              continue # Exclude root directory
-            elif [ "$directory" == docs ]; then
-              continue # Exclude docs directory
-            elif [ "$path" == *.rst ]; then
-              continue # Exclude *.rst files
+            #if [ -z "$directory" ]; then
+            #  continue # Exclude root directory
+            #elif [ "$directory" == docs ]; then
+            #  continue # Exclude docs directory
+            if [ "$path" == **/README.md ]; then
+              continue # Exclude README.md files
             fi
 
             # Set $os. "ubuntu-latest" by default. if directory starts with windows, then "windows-latest"
