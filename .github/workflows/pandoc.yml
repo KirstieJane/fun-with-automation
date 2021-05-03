@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           echo "Lorem ipsum" > lorem_1.md  # create two example files
-          echo "dolor sit amet\nhere's a new line" > lorem_2.md
+          echo "dolor sit amet --- here's a new line" > lorem_2.md
           mkdir -p output  # create output dir
           # this will also include README.md
           echo "FILELIST=$(printf '"%s" ' *.md)" >> $GITHUB_ENV
