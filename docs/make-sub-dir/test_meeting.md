@@ -9,3 +9,8 @@ Make a change to the file.
 Adding another emoji: :laughing:
 
 Here's a fun change....
+
+| What happens | with | tables? |
+| ---- | ---- | ---- |
+| ala | d | d |
+| lfll | q | q |
