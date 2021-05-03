@@ -37,7 +37,7 @@ jobs:
           for new_pdf in `ls new_pdfs/*pdf`; do
             curl -F file=${new_pdf} \
             -F channels=#meeting-minutes-pdfs \
-            -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }} \
+            -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }}" \
             https://slack.com/api/files.upload;
           done
       - run: cp new_pdfs/*pdf pdfs/
