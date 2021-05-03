@@ -1,6 +1,7 @@
 name: Convert PDF to Markdown
 
 on:
+  workflow_dispatch:
   push:
     paths:
     - 'docs/**.md'
