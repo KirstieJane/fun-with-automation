@@ -23,7 +23,7 @@ jobs:
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: tmp_mds_to_convert
-          output_dir: pdfs
+          output_dir: new_pdfs
           # images_dir: docs/images
           # for example <img src="./images/file-name.png">
           # image_import: ./images
@@ -32,8 +32,17 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: new_pdfs
-          path: pdfs
+          path: new_pdfs
+      - run: |
+          for new_pdf in `ls new_pdfs/*pdf`; do
+            curl -F file=${new_pdf} \
+            -F channels=#meeting-minutes-pdfs \
+            -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }} \
+            https://slack.com/api/files.upload;
+          done
+      - run: cp new_pdfs/*pdf pdfs/
       - run: rm -rf tmp_mds_to_convert
+      - run: rm -rf new_pdfs
       - uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
