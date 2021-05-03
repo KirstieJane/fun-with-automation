@@ -23,6 +23,8 @@ jobs:
 
   converttopdf:
     name: Build PDF
+    runs-on: ubuntu-latest
+    steps:
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: tmp_mds_to_convert
@@ -35,6 +37,8 @@ jobs:
 
   uploadtoslack:
     name: Upload to Slack
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/upload-artifact@v1
         with:
           name: new_pdfs
@@ -53,6 +57,8 @@ jobs:
 
   uploadtogithub:
     name: Upload to GitHub
+    runs-on: ubuntu-latest
+    steps:
       - run: |
           if [[ -z "$(ls new_pdfs/*pdf) ]]; then
             echo "No new PDFS, nothing to upload"
