@@ -16,7 +16,7 @@ jobs:
         with:
           args: >-
             -o output/a-new-file.pdf
-            --pdf-engine=lualatex
+            --pdf-engine=xelatex
             docs/make-sub-dir/a-new-file.md
       - uses: actions/upload-artifact@v1
         with:
