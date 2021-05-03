@@ -24,9 +24,11 @@ jobs:
           chmod +x ./scripts/filter_mds_new_only.sh
           ./scripts/filter_mds_new_only.sh
           if [[ -z "$(ls -A tmp_mds_to_convert/*)" ]]; then
-            echo "::set-output name=new_mds::false"
+            echo "::set-output name=new_mds::0"
+            echo "Setting output to 0"
           else
-            echo "::set-output name=new_mds::true"
+            echo "::set-output name=new_mds::1"
+            echo "Setting output to 1"
           fi
 
   converttopdf:
