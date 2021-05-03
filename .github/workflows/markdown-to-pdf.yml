@@ -20,6 +20,12 @@ jobs:
           fetch-depth: 2
       - run: chmod +x ./scripts/filter_mds_new_only.sh
       - run: ./scripts/filter_mds_new_only.sh
+      - run: |
+          if [[ -z "$(ls tmp_mds_to_convert/*md) ]]; then
+            echo "::set-output name=new_mds::false"
+          else
+            echo "::set-output name=new_mds::true"
+          fi
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: tmp_mds_to_convert
@@ -36,6 +42,7 @@ jobs:
     needs: [converttopdf]
     steps:
       - uses: actions/upload-artifact@v1
+        if: ${{ new_mds }}
         with:
           name: new_pdfs
           path: new_pdfs
