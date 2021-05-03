@@ -14,8 +14,11 @@ jobs:
           echo "FILELIST=$(printf '"%s" ' *.md)" >> $GITHUB_ENV
       - uses: docker://pandoc/latex:2.9
         with:
-          args: -o emoji.pdf --pdf-engine=lualatex -V mainfont="DejaVu Sans"
-          --output=output/result.pdf docs/make-sub-dir/a-new-file.md
+          args: >-
+            -o emoji.pdf
+            --pdf-engine=lualatex
+            -V mainfont="DejaVu Sans"
+           docs/make-sub-dir/a-new-file.md
       - uses: actions/upload-artifact@v1
         with:
           name: output
