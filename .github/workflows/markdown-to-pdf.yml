@@ -52,8 +52,8 @@ jobs:
         if: steps.filter.outputs.new_mds == 1
         run: |
           for new_pdf in `ls new_pdfs/*pdf`; do
-            curl -F file=${new_pdf} \
-            -F channels=#meeting-minutes-pdfs \
+            curl -F file=@${new_pdf} \
+            -F channels=C02154M1Z41 \
             -H "Authorization: Bearer ${{ secrets.SLACK_SECRET }}" \
             https://slack.com/api/files.upload;
           done
