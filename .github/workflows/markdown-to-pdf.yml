@@ -19,10 +19,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-      - name:
-        run: |
-          sudo chown -R $USER:$USER \
-          /home/github/actions-runner/work/fun_with_automation/fun_with_automation
       - name: Find updated markdown files
         id: filter
         run: |
@@ -68,8 +64,8 @@ jobs:
             echo "No new PDFS, nothing to upload"
           else
             cp new_pdfs/*pdf pdfs/
-            rm -rf tmp_mds_to_convert
-            rm -rf new_pdfs
+            sudo rm -rf tmp_mds_to_convert
+            sudo rm -rf new_pdfs
           fi
       - name: Push to GitHub
         uses: mikeal/publish-to-github-action@master
