@@ -1,7 +1,4 @@
 # README
 
-This is a readme file for the docs dir
-
-Changing a file here.
-
-Making another change here!
+The two sentences in this paragraph should appear in the PDF as continuous text.
+I think they actually appear on 3 different lines.
